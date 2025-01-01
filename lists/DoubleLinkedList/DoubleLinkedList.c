@@ -92,7 +92,7 @@ void* DoubleLinkedList_remove(DoubleLinkedList** list,unsigned int index){
     ptr->next = ret->next;
     void* res = ret->data;
     free(ret);
-    (*list)->size;
+    (*list)->size--;
     return res;
 }
 void DoubleLinkedList_clear(DoubleLinkedList** list){

@@ -1,31 +1,43 @@
 
+ifeq ($(OS),Windows_NT)
+	DEL_CMD = del /Q /F
+	PATH_SEP = \\
+else
+	DEL_CMD = rm -f
+	PATH_SEP = /
+endif
+
+
 CC = gcc
 CFLAGS = -Wall -g
 
 
-ARRAYLIST_DIR = lists/ArrayList
-DLINKLIST_DIR = lists/DoubleLinkedList
+ARRAYLIST_DIR = lists$(PATH_SEP)ArrayList
+DLINKLIST_DIR = lists$(PATH_SEP)DoubleLinkedList
 
 
 all: arraylist_program dlinklist_program
 
-arraylist_program: $(ARRAYLIST_DIR)/main.o $(ARRAYLIST_DIR)/arraylist.o
+arraylist_program: $(ARRAYLIST_DIR)$(PATH_SEP)main.o $(ARRAYLIST_DIR)$(PATH_SEP)arraylist.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(ARRAYLIST_DIR)/main.o: $(ARRAYLIST_DIR)/main.c $(ARRAYLIST_DIR)/arraylist.h
+$(ARRAYLIST_DIR)$(PATH_SEP)main.o: $(ARRAYLIST_DIR)$(PATH_SEP)main.c $(ARRAYLIST_DIR)$(PATH_SEP)arraylist.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(ARRAYLIST_DIR)/arraylist.o: $(ARRAYLIST_DIR)/arraylist.c $(ARRAYLIST_DIR)/arraylist.h
+$(ARRAYLIST_DIR)$(PATH_SEP)arraylist.o: $(ARRAYLIST_DIR)$(PATH_SEP)arraylist.c $(ARRAYLIST_DIR)$(PATH_SEP)arraylist.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
-dlinklist_program: $(DLINKLIST_DIR)/main.o $(DLINKLIST_DIR)/doublelinkedlist.o
+dlinklist_program: $(DLINKLIST_DIR)$(PATH_SEP)main.o $(DLINKLIST_DIR)$(PATH_SEP)doublelinkedlist.o
 	$(CC) $^ -o $@ $(CFLAGS)
 
-$(DLINKLIST_DIR)/main.o: $(DLINKLIST_DIR)/main.c $(DLINKLIST_DIR)/doublelinkedlist.h
+$(DLINKLIST_DIR)$(PATH_SEP)main.o: $(DLINKLIST_DIR)$(PATH_SEP)main.c $(DLINKLIST_DIR)$(PATH_SEP)doublelinkedlist.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(DLINKLIST_DIR)/doublelinkedlist.o: $(DLINKLIST_DIR)/doublelinkedlist.c $(DLINKLIST_DIR)/doublelinkedlist.h
+$(DLINKLIST_DIR)$(PATH_SEP)doublelinkedlist.o: $(DLINKLIST_DIR)$(PATH_SEP)doublelinkedlist.c $(DLINKLIST_DIR)$(PATH_SEP)doublelinkedlist.h
 	$(CC) $(CFLAGS) -c $< -o $@
 clean:
-	rm -f $(ARRAYLIST_DIR)/*.o $(DLINKLIST_DIR)/*.o arraylist_program dlinklist_program
+	$(DEL_CMD) "$(ARRAYLIST_DIR)$(PATH_SEP)*.o" 
+	$(DEL_CMD) "$(DLINKLIST_DIR)$(PATH_SEP)*.o" 
+	$(DEL_CMD) "arraylist_program*" 
+	$(DEL_CMD) "dlinklist_program*"
