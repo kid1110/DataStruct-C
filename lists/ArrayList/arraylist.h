@@ -9,7 +9,24 @@ typedef struct arraylist
     unsigned int capacity;
     void** data;   
 }arraylist;
+
+/**
+ * @brief 
+ * 
+ * @param list 
+ * @param index insert the value at the index
+ * @param value insert value 
+ */
 void arraylist_insert(arraylist* list, unsigned int index, void* value);
+
+
+/**
+ * @brief 
+ * 
+ * @param list 
+ * @param index 
+ * @return void* 
+ */
 void arraylist_clear(arraylist* list);
 bool arraylist_empty(arraylist* list);
 // inline unsigned int arraylist_size(arraylist* list);
