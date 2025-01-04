@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #ifndef SORTS_H
 #define SORTS_H
 

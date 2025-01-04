@@ -7,6 +7,9 @@
 *.obj
 *.elf
 
+./list/*/*.o
+./sorts/*.o
+
 # Linker output
 *.ilk
 *.map
