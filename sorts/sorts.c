@@ -34,6 +34,19 @@ void bubble_sort(void *arr, size_t n, size_t size, Comparator cmp)
 void insert_sort(void *arr, size_t n, size_t size, Comparator cmp)
 {
     // TODO: add things here
+    for (int i = 1; i < n; i++)
+    {
+        void *base = (char *)arr + i * size;
+        int j = i - 1;
+        while (j >= 0 && cmp((char *)arr + j * size, base) > 0)
+        {
+            void *first = (char *)arr + j * size;
+            void *second = (char *)arr + (j + 1) * size;
+            swap(first, second, size);
+            j--;
+        }
+        void *first = (char *)arr + j * size;
+    }
 }
 
 void select_sort(void *arr, size_t n, size_t size, Comparator cmp)
@@ -52,7 +65,27 @@ void select_sort(void *arr, size_t n, size_t size, Comparator cmp)
     }
 }
 
-void quick_sort(void *arr, size_t n, size_t size, Comparator cmp)
+void quick_sort(void* arr, int left, int right,size_t size, Comparator cmp)
 {
-    // TODO: add content
+    if(left <= right){
+        return;
+    }
+    int pivot = partition(arr, left, right, size, cmp);
+    quick_sort(arr, left, pivot - 1, size, cmp);
+    quick_sort(arr, pivot + 1, right, size, cmp);
+}
+
+int partition(void* arr, int left, int right , size_t size, Comparator cmp){
+    int i = left, j = right;
+    while(i < j){
+        while (i < j && cmp((char*)arr + j * size, (char*)arr + left) >=0){
+            j--;
+        }
+        while(i < j && cmp((char*)arr + i * size,(char*)arr + left) <=0){
+            i++;
+        }
+        swap((char*)arr + i * size, (char*)arr + j * size, size);  
+    }
+    swap((char*)arr + left * size, (char*)arr + i * size, size);
+    return i;
 }
